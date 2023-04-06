@@ -19,3 +19,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## License Exception for Epic Games Content
+
+The MIT license included in this repository applies to the code and assets created by the project author(s). It does not apply to any content owned by Epic Games, such as the UE4 Mannequin, animations, or other assets. The use of these assets is governed by the Unreal Engine EULA, and any redistribution, modification, or commercial use of the Epic Games assets should be done in accordance with the terms of that agreement.
+

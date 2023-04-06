@@ -22,6 +22,8 @@ UGCameraComponent::UGCameraComponent()
 	SpringArmComponent->bInheritPitch = false;
 	SpringArmComponent->bInheritYaw = false;
 	SpringArmComponent->bInheritRoll = false;
+	SpringArmComponent->bDoCollisionTest = false;
+
 
 	// Create and configure the Camera component
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));

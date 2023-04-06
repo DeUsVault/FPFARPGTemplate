@@ -23,4 +23,7 @@ FullPowerFantasy is an open project, and contributions are welcome! If you have 
 License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
+Please note that this project may include content owned by Epic Games, such as the UE4 Mannequin, animations, or other assets. These assets are provided under the terms of the Unreal Engine EULA and remain the property of Epic Games. The use of these assets is governed by the Unreal Engine EULA, and any redistribution, modification, or commercial use of the Epic Games assets should be done in accordance with the terms of that agreement.
+
+
 Made with :heart: and AI assistance from OpenAI's ChatGPT.
