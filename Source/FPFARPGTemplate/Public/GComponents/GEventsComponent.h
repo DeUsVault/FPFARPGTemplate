@@ -22,6 +22,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "GDataTypes/GDataTypes.h"
 #include "GEventsComponent.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnDamageTaken, float, DamageAmount);
@@ -34,7 +35,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FRemoveItemDelegate, class UGItem*, 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAddCurrencyDelegate, FName, CurrencyName, int32, Amount);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FRemoveCurrencyDelegate, FName, CurrencyName, int32, Amount);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FHealthChangedDelegate, float, NewHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStatChangedDelegate, const FGCharacterStat&, Stat);
+
 
 
 
@@ -67,9 +69,8 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FRemoveCurrencyDelegate OnRemoveCurrency;
 
-	// GEventsComponent.h
 	UPROPERTY(BlueprintAssignable, Category = "Events")
-	FHealthChangedDelegate OnHealthChanged;
+	FOnStatChangedDelegate OnStatChanged;
 
 
 		

@@ -31,7 +31,6 @@ UGCharacterStatsComponent::UGCharacterStatsComponent()
 	PrimaryComponentTick.bCanEverTick = false;
 
 	// Load stats from the data table
-	LoadBaseStatData();
 	// ...
 }
 
@@ -41,15 +40,41 @@ void UGCharacterStatsComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Add this inside the BeginPlay function of the GStatsComponent
+	LoadBaseStatData();
+	// Bind Events
 	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
 	if (EventsComponent)
 	{
 		EventsComponent->OnApplyItemStatModifiers.AddDynamic(this, &ThisClass::ApplyItemStatModifiers);
 	}
 
+	// Set a timer to delay the initial stat update
+	GetWorld()->GetTimerManager().SetTimer(InitialStatUpdateTimer, this, &ThisClass::UpdateAllStats, 0.2f, false);
+
 	// ...
 
+}
+
+void UGCharacterStatsComponent::UpdateAllStats()
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, FString::Printf(TEXT("Updating stats")));
+	}
+	// Add this inside the BeginPlay function of the GStatsComponent
+	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
+	if (EventsComponent)
+	{
+		for (const auto& StatPair : Stats)
+		{
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, FString::Printf(TEXT("Broadcasting Stat: %s"), *StatPair.Value.StatName.ToString()));
+			}
+			EventsComponent->OnStatChanged.Broadcast(StatPair.Value);
+		}
+
+	}
 }
 
 
@@ -160,6 +185,7 @@ void UGCharacterStatsComponent::LoadBaseStatData()
 				FGCharacterStat NewStat;
 				NewStat.BaseValue = StatRow->BaseValue;
 				NewStat.CurrentValue = StatRow->CurrentValue;
+				NewStat.StatName = StatRow->StatName;
 				Stats.Add(RowName, NewStat);
 			}
 		}

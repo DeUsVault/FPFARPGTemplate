@@ -75,6 +75,10 @@ struct FGCharacterStat : public FTableRowBase
 {
 	GENERATED_BODY()
 
+	// The name of the stat to be modified
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	FName StatName;
+
 	// The base value of the stat
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float BaseValue;

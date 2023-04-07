@@ -25,7 +25,7 @@
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/Pawn.h"
 #include "Components/TextBlock.h"
-
+#include "Components/ProgressBar.h"
 
 void UGHUD::NativeConstruct()
 {
@@ -46,15 +46,37 @@ void UGHUD::NativeConstruct()
 
 			if (EventsComponent)
 			{
-				// Bind the OnHealthChanged delegate to the UpdateHealthDisplay function
-				EventsComponent->OnHealthChanged.AddDynamic(this, &ThisClass::UpdateHealthDisplay);
+				// Bind the OnStatChanged delegate to the UpdateStatDisplay function
+				EventsComponent->OnStatChanged.AddDynamic(this, &ThisClass::UpdateStatDisplay);
+				if (GEngine)
+				{
+					GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Green, FString::Printf(TEXT("Binding Delegate to HUD")));
+				}
 			}
 		}
 	}
 }
 
+void UGHUD::UpdateStatDisplay(const FGCharacterStat& ChangedStat)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("StatUpdated")));
+	}
 
-void UGHUD::UpdateHealthDisplay(float NewHealth)
+
+	// Get the stat FName as a string for comparison
+	FName StatName = ChangedStat.StatName;
+
+	// Use a switch statement to determine which UI element to update
+	if (StatName == "Health")
+	{
+		UpdateHealthDisplay(ChangedStat);
+	}
+	// Add more cases for other stats as needed
+}
+
+void UGHUD::UpdateHealthDisplay(const FGCharacterStat& HealthStat)
 {
 	// Retrieve the Health TextBlock from the UMG Widget Blueprint
 	UTextBlock* HealthTextBlock = Cast<UTextBlock>(GetWidgetFromName(TEXT("HealthTextBlock")));
@@ -62,10 +84,23 @@ void UGHUD::UpdateHealthDisplay(float NewHealth)
 	if (HealthTextBlock)
 	{
 		// Convert the new health value to a string with a desired format (e.g., no decimal points)
-		FText NewHealthText = FText::AsNumber(FMath::RoundToInt(NewHealth));
+		FText NewHealthText = FText::AsNumber(FMath::RoundToInt(HealthStat.CurrentValue));
 
 		// Update the TextBlock with the new health value
 		HealthTextBlock->SetText(NewHealthText);
 	}
+
+	// Retrieve the Health ProgressBar from the UMG Widget Blueprint
+	UProgressBar* HealthProgressBar = Cast<UProgressBar>(GetWidgetFromName(TEXT("HealthProgressBar")));
+
+	if (HealthProgressBar)
+	{
+		// Calculate the progress as a percentage of the current health value divided by the max health value
+		float HealthPercentage = HealthStat.CurrentValue / HealthStat.ModifiedBaseValue;
+
+		// Update the ProgressBar with the new health percentage
+		HealthProgressBar->SetPercent(HealthPercentage);
+	}
 }
+
 

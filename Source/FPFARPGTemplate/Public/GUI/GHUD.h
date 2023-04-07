@@ -22,10 +22,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "GDataTypes/GDataTypes.h"
 #include "GHUD.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class FPFARPGTEMPLATE_API UGHUD : public UUserWidget
@@ -36,9 +37,12 @@ protected:
 	virtual void NativeConstruct() override;
 
 public:
-	
-	UFUNCTION(BlueprintCallable, Category = "HUD")
-	void UpdateHealthDisplay(float NewHealth);
 
+	UFUNCTION(BlueprintCallable, Category = "HUD")
+		void UpdateStatDisplay(const FGCharacterStat& ChangedStat);
+
+private:
+
+	void UpdateHealthDisplay(const FGCharacterStat& HealthStat);
 
 };

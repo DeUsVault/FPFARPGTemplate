@@ -73,4 +73,10 @@ protected:
 private:
 	// Loads the base stat data from the data table
 	void LoadBaseStatData();
+
+	UFUNCTION()
+	void UpdateAllStats();
+
+	FTimerHandle InitialStatUpdateTimer;
+
 };
