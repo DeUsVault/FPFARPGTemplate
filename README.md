@@ -54,16 +54,6 @@ Functionality can then be bound to the delegate in other components or Blueprint
 
 By adopting the decoupling system with the GEventsComponent and event bus, the FPF ARPG Template offers a robust and flexible foundation for building complex and feature-rich games that can easily evolve and expand over time.
 
-## AI System
-
-This project utilizes Unreal Engine's built-in **Behavior Tree** system for AI decision-making and planning. The choice to use Behavior Trees offers several advantages:
-
-- Behavior Trees provide a powerful and flexible framework for creating complex AI behaviors.
-- They are well-integrated with Unreal Engine, making development more efficient.
-- There is a wealth of available resources for learning and implementing Behavior Trees in Unreal Engine.
-
-The decision to use Behavior Trees was made after considering alternative AI planning techniques, such as Goal Oriented Action Planning (GOAP). Ultimately, the integration with Unreal Engine, support resources, and potential for more efficient development made Behavior Trees the preferred choice for this project.
-
 ## Contributions
 
 FullPowerFantasy is an open project, and contributions are welcome! If you have any ideas, suggestions, or improvements, please feel free to create an issue or submit a pull request.
