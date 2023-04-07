@@ -17,6 +17,10 @@ public:
 	// Sets default values for this component's properties
 	UGCharacterStatsComponent();
 
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
 	// Modifies the base value of the specified stat
 	UFUNCTION(BlueprintCallable, Category = "Stats")
 	void ModifyBaseStatValue(FName StatName, float NewValue);

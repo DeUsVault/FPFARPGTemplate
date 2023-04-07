@@ -2,7 +2,7 @@
 
 
 #include "GComponents/GInventoryComponent.h"
-#include "GComponents/GCharacterStatsComponent.h"
+#include "GComponents/GEventsComponent.h"
 #include "GItems/GItem.h"
 
 // Sets default values for this component's properties
@@ -24,7 +24,14 @@ void UGInventoryComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
+	if (EventsComponent)
+	{
+		EventsComponent->OnAddItem.AddDynamic(this, &ThisClass::AddItem);
+		EventsComponent->OnRemoveItem.AddDynamic(this, &ThisClass::RemoveItem);
+		EventsComponent->OnAddCurrency.AddDynamic(this, &ThisClass::AddCurrency);
+		EventsComponent->OnRemoveCurrency.AddDynamic(this, &ThisClass::RemoveCurrency);
+	}
 	
 }
 
@@ -37,25 +44,22 @@ void UGInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	// ...
 }
 
-bool UGInventoryComponent::AddItem(UGItem* Item)
+void UGInventoryComponent::AddItem(UGItem* Item)
 {
-	if (IsInventoryFull())
+	if (!IsInventoryFull())
 	{
-		return false;
+		InventoryItems.Add(Item);
 	}
-
-	InventoryItems.Add(Item);
-	return true;
 }
 
-bool UGInventoryComponent::RemoveItem(UGItem* Item)
+void UGInventoryComponent::RemoveItem(UGItem* Item)
 {
-	return InventoryItems.Remove(Item) > 0;
+	InventoryItems.Remove(Item);
 }
 
 bool UGInventoryComponent::EquipItem(UGItem* Item)
 {
-	if (!Item)
+	if (Item)
 	{
 		return false;
 	}
@@ -74,10 +78,12 @@ bool UGInventoryComponent::EquipItem(UGItem* Item)
 	EquippedItems.Add(EquipmentSlot, Item);
 	RemoveItem(Item);
 
-	UGCharacterStatsComponent* StatsComponent = GetOwner()->FindComponentByClass<UGCharacterStatsComponent>();
-	if (StatsComponent)
+	// Get the GEventsComponent from the owner
+	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
+	if (EventsComponent)
 	{
-		StatsComponent->ApplyItemStatModifiers(Item, true);
+		// Call the delegate instead of the ApplyItemStatModifiers function directly
+		EventsComponent->OnApplyItemStatModifiers.Broadcast(Item, true);
 	}
 
 	return true;
@@ -96,10 +102,12 @@ bool UGInventoryComponent::UnequipItem(EGItemSlot EquipmentSlot)
 	EquippedItems.Remove(EquipmentSlot);
 	AddItem(Item);
 
-	UGCharacterStatsComponent* StatsComponent = GetOwner()->FindComponentByClass<UGCharacterStatsComponent>();
-	if (StatsComponent)
+	// Get the GEventsComponent from the owner
+	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
+	if (EventsComponent)
 	{
-		StatsComponent->ApplyItemStatModifiers(Item, false);
+		// Call the delegate instead of the ApplyItemStatModifiers function directly
+		EventsComponent->OnApplyItemStatModifiers.Broadcast(Item, false);
 	}
 
 	return true;
@@ -131,15 +139,13 @@ void UGInventoryComponent::AddCurrency(FName CurrencyName, int32 Amount)
 }
 
 
-bool UGInventoryComponent::RemoveCurrency(FName CurrencyName, int32 Amount)
+void UGInventoryComponent::RemoveCurrency(FName CurrencyName, int32 Amount)
 {
 	FGCurrency* Currency = Currencies.Find(CurrencyName);
 	if (Currency && Currency->Amount >= Amount && Amount > 0)
 	{
 		Currency->Amount -= Amount;
-		return true;
 	}
-	return false;
 }
 
 

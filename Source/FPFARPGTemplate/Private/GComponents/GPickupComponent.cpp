@@ -2,9 +2,9 @@
 
 
 #include "GComponents/GPickupComponent.h"
+#include "GComponents/GEventsComponent.h"
 #include "GPickups/GPickup_Item.h"
 #include "GPickups/GPickup_Currency.h"
-#include "GComponents/GInventoryComponent.h"
 
 // Sets default values for this component's properties
 UGPickupComponent::UGPickupComponent()
@@ -42,13 +42,11 @@ void UGPickupComponent::PickupItem(AGPickup_Item* ItemPickup)
 		return;
 	}
 
-	UGInventoryComponent* InventoryComponent = GetOwner()->FindComponentByClass<UGInventoryComponent>();
-	if (InventoryComponent)
+	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
+	if (EventsComponent)
 	{
-		if (InventoryComponent->AddItem(ItemPickup->Item))
-		{
-			ItemPickup->Destroy();
-		}
+		EventsComponent->OnAddItem.Broadcast(ItemPickup->Item);
+		ItemPickup->Destroy();
 	}
 }
 
@@ -59,10 +57,10 @@ void UGPickupComponent::PickupCurrency(AGPickup_Currency* CurrencyPickup)
 		return;
 	}
 
-	UGInventoryComponent* InventoryComponent = GetOwner()->FindComponentByClass<UGInventoryComponent>();
-	if (InventoryComponent)
+	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
+	if (EventsComponent)
 	{
-		InventoryComponent->AddCurrency(CurrencyPickup->CurrencyName, CurrencyPickup->Amount);
+		EventsComponent->OnAddCurrency.Broadcast(CurrencyPickup->CurrencyName, CurrencyPickup->Amount);
 		CurrencyPickup->Destroy();
 	}
 }

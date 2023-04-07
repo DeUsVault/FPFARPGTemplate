@@ -39,11 +39,11 @@ public:
 
 	// Function to add an item to the inventory
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	bool AddItem(UGItem* Item);
+	void AddItem(UGItem* Item);
 
 	// Function to remove an item from the inventory
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	bool RemoveItem(UGItem* Item);
+	void RemoveItem(UGItem* Item);
 
 	// Function to equip an item
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
@@ -67,7 +67,7 @@ public:
 
 	// Function to remove currency from the inventory
 	UFUNCTION(BlueprintCallable, Category = "Currency")
-	bool RemoveCurrency(FName CurrencyName, int32 Amount);
+	void RemoveCurrency(FName CurrencyName, int32 Amount);
 
 	// Function to get the current amount of a specific currency
 	UFUNCTION(BlueprintCallable, Category = "Currency")

@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
+#include "GBaseClasses/GCharacter.h"
 #include "GPlayerCharacter.generated.h"
 
 UCLASS()
-class FPFARPGTEMPLATE_API AGPlayerCharacter : public ACharacter
+class FPFARPGTEMPLATE_API AGPlayerCharacter : public AGCharacter
 {
 	GENERATED_BODY()
 

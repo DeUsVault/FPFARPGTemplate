@@ -2,6 +2,7 @@
 
 
 #include "GComponents/GCharacterStatsComponent.h"
+#include "GComponents/GEventsComponent.h"
 #include "GItems/GItem.h"
 
 // Sets default values for this component's properties
@@ -15,6 +16,24 @@ UGCharacterStatsComponent::UGCharacterStatsComponent()
 	LoadBaseStatData();
 	// ...
 }
+
+
+// Called when the game starts
+void UGCharacterStatsComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	// Add this inside the BeginPlay function of the GStatsComponent
+	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
+	if (EventsComponent)
+	{
+		EventsComponent->OnApplyItemStatModifiers.AddDynamic(this, &ThisClass::ApplyItemStatModifiers);
+	}
+
+	// ...
+
+}
+
 
 void UGCharacterStatsComponent::ModifyBaseStatValue(FName StatName, float NewValue)
 {

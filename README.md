@@ -22,6 +22,38 @@ To begin using the FPF ARPG Template, clone the repository and open the project 
 
 We hope the FPF ARPG Template serves as an inspiring starting point for your ARPG projects, and that you enjoy discovering the creative and technical possibilities offered by this AI-assisted template.
 
+## Decoupling System and Benefits
+
+The FPF ARPG Template incorporates a powerful decoupling system that significantly enhances the flexibility and maintainability of the project's architecture. By leveraging the `GEventsComponent` and an event bus approach, we can achieve a high degree of modularity and extensibility for the game's features.
+
+### GEventsComponent and Event Bus
+
+The `GEventsComponent` serves as a central hub for handling game events using delegates. It can be attached to any character or object, allowing for efficient communication between different game systems without directly referencing components or creating unnecessary dependencies.
+
+This event-driven approach provides several key benefits:
+
+1. **Modularity**: Game systems and components can be easily added, removed, or modified without affecting the overall architecture, resulting in a more modular and manageable codebase.
+2. **Extensibility**: New features can be quickly introduced and seamlessly integrated into the existing game framework, speeding up the development process and reducing the risk of introducing bugs.
+3. **Reusability**: Game systems can be easily reused across different projects or shared with the community, fostering collaboration and reducing development time.
+4. **Easier Debugging**: The event-driven approach allows for better debugging and troubleshooting, as issues can be traced through the event chain rather than navigating a tangled web of component dependencies.
+5. **Scalability**: The decoupling system can handle increasing complexity as the project grows, making it an ideal solution for long-term projects and large-scale games.
+
+### Implementation Example
+
+Here's a simple example of how the `GEventsComponent` can be used to handle events in a decoupled manner:
+
+```cpp
+UGEventsComponent* EventsComponent = TargetCharacter->FindComponentByClass<UGEventsComponent>();
+if (EventsComponent)
+{
+	EventsComponent->OnDamageTaken.Broadcast(DamageAmount);
+}
+
+Functionality can then be bound to the delegate in other components or Blueprints, allowing for an elegant and efficient communication system without the need for direct component references.
+
+By adopting the decoupling system with the GEventsComponent and event bus, the FPF ARPG Template offers a robust and flexible foundation for building complex and feature-rich games that can easily evolve and expand over time.
+
+
 ## AI System
 
 This project utilizes Unreal Engine's built-in **Behavior Tree** system for AI decision-making and planning. The choice to use Behavior Trees offers several advantages:

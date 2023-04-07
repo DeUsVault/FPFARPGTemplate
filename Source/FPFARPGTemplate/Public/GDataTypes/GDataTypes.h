@@ -74,19 +74,19 @@ struct FGCurrency : public FTableRowBase
 	GENERATED_BODY()
 
 	// The name of the currency
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FName CurrencyName;
 
 	// The display name of the currency
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FText DisplayName;
 
 	// The icon representing the currency
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UTexture2D* Icon;
 
 	// The amount of the currency
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 Amount;
 };
 
