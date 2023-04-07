@@ -22,6 +22,12 @@ To begin using the FPF ARPG Template, clone the repository and open the project 
 
 We hope the FPF ARPG Template serves as an inspiring starting point for your ARPG projects, and that you enjoy discovering the creative and technical possibilities offered by this AI-assisted template.
 
+## Contents
+
+- [Source Folder](./Source) - Contains the source code for the project.
+
+<!-- Add other links to folders and files as needed -->
+
 ## Decoupling System and Benefits
 
 The FPF ARPG Template incorporates a powerful decoupling system that significantly enhances the flexibility and maintainability of the project's architecture. By leveraging the `GEventsComponent` and an event bus approach, we can achieve a high degree of modularity and extensibility for the game's features.
