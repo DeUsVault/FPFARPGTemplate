@@ -63,11 +63,6 @@ void AGAIController::Tick(float DeltaTime)
 
 void AGAIController::OnPerceptionUpdated(const TArray<AActor*>& PerceivedActors)
 {
-	if (GEngine)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("Spotted")));
-	}
-
 	for (auto& Actor : PerceivedActors)
 	{
 		UGCharacterInfoComponent* ActorInfoComponent = Actor->FindComponentByClass<UGCharacterInfoComponent>();
