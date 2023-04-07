@@ -2,12 +2,14 @@
 
 
 #include "GAI/GAICharacter.h"
+#include "GComponents/GCharacterInfoComponent.h"
 
 // Sets default values
 AGAICharacter::AGAICharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	CharacterInfoComponent = CreateDefaultSubobject<UGCharacterInfoComponent>(TEXT("CharacterInfoComponent"));
 
 }
 

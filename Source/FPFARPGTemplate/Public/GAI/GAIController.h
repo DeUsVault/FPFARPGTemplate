@@ -25,6 +25,17 @@ class FPFARPGTEMPLATE_API AGAIController : public AAIController
 		// Called every frame
 		virtual void Tick(float DeltaTime) override;
 
+		UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Config", meta = (AllowPrivateAccess = "true"))
+		class UBehaviorTree* BehaviorTree;
+
+		/** Variables for BehaviorTree */
+		UPROPERTY(BlueprintReadWrite, Category = "Config", meta = (AllowPrivateAccess = "true"))
+		class UBlackboardComponent* BlackboardComponent;
+
+		/** Controls AICharacter's Pawn */
+		UPROPERTY(BlueprintReadWrite, Category = "Config", meta = (AllowPrivateAccess = "true"))
+		class UBehaviorTreeComponent* BehaviorTreeComponent;
+
 		/** Processes perception stimulus */
 		UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Config", meta = (AllowPrivateAccess = "true"))
 		class UAIPerceptionComponent* AIPerceptionComponent;

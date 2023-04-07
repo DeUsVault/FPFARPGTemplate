@@ -10,6 +10,7 @@
 #include "GComponents/GPickupComponent.h"
 #include "GComponents/GDialogueComponent.h"
 #include "GComponents/GCharacterProgressionComponent.h"
+#include "GComponents/GCharacterInfoComponent.h"
 
 // Sets default values
 AGPlayerCharacter::AGPlayerCharacter()
@@ -27,6 +28,7 @@ AGPlayerCharacter::AGPlayerCharacter()
 	PickupComponent = CreateDefaultSubobject<UGPickupComponent>(TEXT("PickupComponent"));
 	DialogueComponent = CreateDefaultSubobject<UGDialogueComponent>(TEXT("DialogueComponent"));
 	CharacterProgressionComponent = CreateDefaultSubobject<UGCharacterProgressionComponent>(TEXT("CharacterProgressionComponent"));
+	CharacterInfoComponent = CreateDefaultSubobject<UGCharacterInfoComponent>(TEXT("CharacterInfoComponent"));
 
 	// Disable the rotation of the character to face the camera
 	bUseControllerRotationYaw = true;

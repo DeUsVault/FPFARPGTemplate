@@ -5,9 +5,15 @@
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig_Sight.h"
 #include "Perception/AIPerceptionSystem.h"
+#include "GameFramework/Character.h"
+#include "GComponents/GCharacterInfoComponent.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "BehaviorTree/BehaviorTreeComponent.h"
 
 AGAIController::AGAIController()
 {
+	BlackboardComponent = CreateDefaultSubobject<UBlackboardComponent>(TEXT("BlackboardComponent"));
+	BehaviorTreeComponent = CreateDefaultSubobject<UBehaviorTreeComponent>(TEXT("BehaviorTreeComponent"));
 	
 	AIConfigSight = CreateDefaultSubobject<UAISenseConfig_Sight>(TEXT("AIConfigSight"));
 	AIConfigSight->SightRadius = 1000.f;
@@ -46,6 +52,7 @@ void AGAIController::OnPossess(APawn* InPawn)
 
 
 	//RunBehaviorTree(AICharacter->GetBehaviorTree());
+	RunBehaviorTree(BehaviorTree);
 }
 
 void AGAIController::Tick(float DeltaTime)
@@ -56,24 +63,34 @@ void AGAIController::Tick(float DeltaTime)
 
 void AGAIController::OnPerceptionUpdated(const TArray<AActor*>& PerceivedActors)
 {
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Red, FString::Printf(TEXT("Spotted")));
+	}
+
 	for (auto& Actor : PerceivedActors)
 	{
-		//ADreadLordPlayerCharacter* Player = Cast<ADreadLordPlayerCharacter>(Actor);
-		//if (Player)
-		//{
-		//	TArray<AActor*> OutActors;
-		//	AIPerceptionComponent->GetCurrentlyPerceivedActors(SightSense, OutActors);
-		//	if (OutActors.Contains(Player))
-		//	{
-		//		UE_LOG(LogTemp, Warning, TEXT("Player entered line of sight!"));
-		//		//BlackboardComponent->SetValueAsObject("PlayerCharacter", Player);
-		//	}
-		//	else
-		//	{
-		//		UE_LOG(LogTemp, Warning, TEXT("Player exited line of sight!"));
-		//		//BlackboardComponent->SetValueAsObject("PlayerCharacter", nullptr);
-		//	}
+		UGCharacterInfoComponent* ActorInfoComponent = Actor->FindComponentByClass<UGCharacterInfoComponent>();
 
-		//}
+		if (ActorInfoComponent)
+		{
+			UGCharacterInfoComponent* InfoComponent = GetPawn()->FindComponentByClass<UGCharacterInfoComponent>();
+			if (InfoComponent && InfoComponent->IsHostileTo(ActorInfoComponent))
+			{
+				TArray<AActor*> OutActors;
+				AIPerceptionComponent->GetCurrentlyPerceivedActors(SightSense, OutActors);
+				if (OutActors.Contains(Actor))
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Player entered line of sight!"));
+					BlackboardComponent->SetValueAsObject("Enemy", Actor);
+				}
+				else
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Player exited line of sight!"));
+					BlackboardComponent->SetValueAsObject("Enemy", nullptr);
+				}
+			}
+
+		}
 	}
 }

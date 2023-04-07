@@ -89,3 +89,11 @@ struct FGCurrency : public FTableRowBase
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int32 Amount;
 };
+
+UENUM(BlueprintType)
+enum class EFaction : uint8
+{
+	FACTION_A,
+	FACTION_B,
+	FACTION_C
+};

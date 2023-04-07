@@ -56,4 +56,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	class UGCharacterProgressionComponent* CharacterProgressionComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	class UGCharacterInfoComponent* CharacterInfoComponent;
 };
