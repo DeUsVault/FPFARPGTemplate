@@ -22,4 +22,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Currency")
 	int32 Amount;
+
+protected:
+	// Called when the currency pickup is collected
+	virtual void OnPickedUp(class ACharacter* Character) override;
 };

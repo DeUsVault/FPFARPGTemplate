@@ -18,5 +18,9 @@ public:
 	AGPickup_Item();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
-	class UGItem* Item;
+		class UGItem* Item;
+
+protected:
+	// Called when the item pickup is collected
+	virtual void OnPickedUp(class ACharacter* Character) override;
 };

@@ -2,28 +2,55 @@
 
 
 #include "GPickups/GPickup.h"
+#include "GComponents/GEventsComponent.h"
+#include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "GameFramework/Character.h"
 
-// Sets default values
 AGPickup::AGPickup()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	RootComponent = Mesh;
+
+	CollisionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionSphere"));
+	CollisionSphere->SetupAttachment(Mesh);
+	CollisionSphere->SetCollisionProfileName("OverlapOnlyPawn");
 }
 
-// Called when the game starts or when spawned
 void AGPickup::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	CollisionSphere->OnComponentBeginOverlap.AddDynamic(this, &AGPickup::OnOverlapBegin);
 }
 
-// Called every frame
 void AGPickup::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
+void AGPickup::OnPickedUp(ACharacter* Character)
+{
+	if (Character)
+	{
+		UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(Character->GetComponentByClass(UGEventsComponent::StaticClass()));
+		if (EventsComponent)
+		{
+			// Call the appropriate delegate for the pickup type (item or currency) using the EventsComponent
+			// For example:
+			// EventsComponent->OnAddItem.Broadcast(Item);
+			// EventsComponent->OnAddCurrency.Broadcast(CurrencyName, Amount);
+		}
+	}
+}
+
+void AGPickup::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	ACharacter* Character = Cast<ACharacter>(OtherActor);
+	if (Character)
+	{
+		OnPickedUp(Character);
+		Destroy();
+	}
+}

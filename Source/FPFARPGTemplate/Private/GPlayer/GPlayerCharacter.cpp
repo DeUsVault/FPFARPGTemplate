@@ -7,7 +7,6 @@
 #include "GComponents/GInventoryComponent.h"
 #include "GComponents/GCharacterStatsComponent.h"
 #include "GComponents/GAbilityComponent.h"
-#include "GComponents/GPickupComponent.h"
 #include "GComponents/GDialogueComponent.h"
 #include "GComponents/GCharacterProgressionComponent.h"
 #include "GComponents/GCharacterInfoComponent.h"
@@ -25,7 +24,6 @@ AGPlayerCharacter::AGPlayerCharacter()
 	InventoryComponent = CreateDefaultSubobject<UGInventoryComponent>(TEXT("InventoryComponent"));
 	CharacterStatsComponent = CreateDefaultSubobject<UGCharacterStatsComponent>(TEXT("CharacterStatsComponent"));
 	AbilityComponent = CreateDefaultSubobject<UGAbilityComponent>(TEXT("AbilityComponent"));
-	PickupComponent = CreateDefaultSubobject<UGPickupComponent>(TEXT("PickupComponent"));
 	DialogueComponent = CreateDefaultSubobject<UGDialogueComponent>(TEXT("DialogueComponent"));
 	CharacterProgressionComponent = CreateDefaultSubobject<UGCharacterProgressionComponent>(TEXT("CharacterProgressionComponent"));
 	CharacterInfoComponent = CreateDefaultSubobject<UGCharacterInfoComponent>(TEXT("CharacterInfoComponent"));

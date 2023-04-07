@@ -46,10 +46,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	class UGAbilityComponent* AbilityComponent;
 
-	// PickupComponent handles interactions with pickups, such as collecting items and gold
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-	class UGPickupComponent* PickupComponent;
-
 	// DialogueComponent handles dialogue interactions with NPCs and quest-related functionality
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	class UGDialogueComponent* DialogueComponent;

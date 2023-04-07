@@ -53,7 +53,6 @@ Functionality can then be bound to the delegate in other components or Blueprint
 
 By adopting the decoupling system with the GEventsComponent and event bus, the FPF ARPG Template offers a robust and flexible foundation for building complex and feature-rich games that can easily evolve and expand over time.
 
-
 ## AI System
 
 This project utilizes Unreal Engine's built-in **Behavior Tree** system for AI decision-making and planning. The choice to use Behavior Trees offers several advantages:
@@ -75,3 +74,5 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 Please note that this project may include content owned by Epic Games, such as the UE4 Mannequin, animations, or other assets. These assets are provided under the terms of the Unreal Engine EULA and remain the property of Epic Games. The use of these assets is governed by the Unreal Engine EULA, and any redistribution, modification, or commercial use of the Epic Games assets should be done in accordance with the terms of that agreement.
 
 Made with :heart: and AI assistance from OpenAI's ChatGPT.
+
+
