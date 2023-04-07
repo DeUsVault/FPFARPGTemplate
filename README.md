@@ -48,6 +48,7 @@ if (EventsComponent)
 {
 	EventsComponent->OnDamageTaken.Broadcast(DamageAmount);
 }
+```
 
 Functionality can then be bound to the delegate in other components or Blueprints, allowing for an elegant and efficient communication system without the need for direct component references.
 
