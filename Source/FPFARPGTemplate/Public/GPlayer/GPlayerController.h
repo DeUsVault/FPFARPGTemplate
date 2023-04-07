@@ -17,4 +17,13 @@ class FPFARPGTEMPLATE_API AGPlayerController : public APlayerController
 	public:
 
 		AGPlayerController();
+
+		virtual void BeginPlay() override;
+
+	private:
+		UPROPERTY(EditDefaultsOnly, Category = "UI")
+		TSubclassOf<class UUserWidget> PlayerHUDClass;
+
+		UPROPERTY()
+		class UUserWidget* PlayerHUD;
 };
