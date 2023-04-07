@@ -1,6 +1,6 @@
 # FPF ARPG Template
 
-The FPF ARPG Template is an Action Role-Playing Game (ARPG) project template created with Unreal Engine, featuring essential gameplay systems and AI-driven components. The purpose of this template is to provide a solid foundation for creating ARPGs while showcasing the potential of AI assistance in game development.
+The FPF ARPG Template is an Action Role-Playing Game (ARPG) project template created with Unreal Engine, featuring essential gameplay systems and components created with AI-assistance. The purpose of this template is to provide a solid foundation for creating ARPGs while showcasing the potential of AI assistance in game development.
 
 ## Overview
 
