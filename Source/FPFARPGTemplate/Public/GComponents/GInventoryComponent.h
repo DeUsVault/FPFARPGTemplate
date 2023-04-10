@@ -71,6 +71,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	bool UnequipItem(EGItemSlot EquipmentSlot);
 
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	bool EquipWeapon(UGItem* Item);
+
+
 	// TMap containing the currencies with FName as the key and FGCurrency as the value
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Currency")
 	TMap<FName, FGCurrency> Currencies;

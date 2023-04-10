@@ -55,6 +55,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
 	EGItemSlot ItemSlot;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
+	EGItemType ItemType;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Item")
+	TSubclassOf<AActor> ItemActorClass;
+
 public:
 	// Getter for the item's name
 	UFUNCTION(BlueprintPure, Category = "Item")
@@ -75,4 +81,10 @@ public:
 	// Getter for the item's slot
 	UFUNCTION(BlueprintPure, Category = "Item")
 	FORCEINLINE EGItemSlot GetItemSlot() const { return ItemSlot; }
+
+	UFUNCTION(BlueprintPure, Category = "Item")
+	FORCEINLINE EGItemType GetItemType() const { return ItemType; }
+
+	UFUNCTION(BlueprintPure, Category = "Item")
+	FORCEINLINE TSubclassOf<AActor> GetItemActorClass() const { return ItemActorClass; }
 };

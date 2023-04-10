@@ -39,6 +39,15 @@ enum class EGItemSlot : uint8
 	EGIT_MAX UMETA(DisplayName = "DefaultMax")
 };
 
+UENUM(BlueprintType)
+enum class EGItemType : uint8
+{
+	Weapon		UMETA(DisplayName = "Weapon"),
+	Consumable	UMETA(DisplayName = "Consumable"),
+	Miscellaneous	UMETA(DisplayName = "Miscellaneous"),
+};
+
+
 
 // Enumeration representing the different types of stat modifiers
 UENUM(BlueprintType)

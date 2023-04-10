@@ -22,10 +22,11 @@
 
 #include "CoreMinimal.h"
 #include "GBaseClasses/GCharacter.h"
+#include "AbilitySystemInterface.h"
 #include "GPlayerCharacter.generated.h"
 
 UCLASS()
-class FPFARPGTEMPLATE_API AGPlayerCharacter : public AGCharacter
+class FPFARPGTEMPLATE_API AGPlayerCharacter : public AGCharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -43,6 +44,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	FORCEINLINE UAbilitySystemComponent* GetAbilitySystemComponent() const { return AbilitySystemComponent; }
 
 	// CharacterInputComponent handles all input-related functionality such as movement and attacks
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
@@ -73,4 +76,8 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	class UGCharacterInfoComponent* CharacterInfoComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities")
+	class UAbilitySystemComponent* AbilitySystemComponent;
+
 };

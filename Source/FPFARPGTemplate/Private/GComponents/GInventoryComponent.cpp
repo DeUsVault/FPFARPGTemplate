@@ -4,6 +4,8 @@
 #include "GComponents/GInventoryComponent.h"
 #include "GComponents/GEventsComponent.h"
 #include "GItems/GItem.h"
+#include "GItems/GWeapon.h"
+#include "GameFramework/Character.h"
 
 // Sets default values for this component's properties
 UGInventoryComponent::UGInventoryComponent()
@@ -112,6 +114,44 @@ bool UGInventoryComponent::UnequipItem(EGItemSlot EquipmentSlot)
 
 	return true;
 }
+
+
+bool UGInventoryComponent::EquipWeapon(UGItem* Item)
+{
+	if (Item->GetItemType() != EGItemType::Weapon || !Item->GetItemActorClass())
+	{
+		return false;
+	}
+
+	// Spawn the weapon actor
+	UWorld* World = GetWorld();
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	AActor* WeaponActor = World->SpawnActor<AActor>(Item->GetItemActorClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
+
+	if (!WeaponActor)
+	{
+		return false;
+	}
+
+	// Attach the weapon to the character mesh
+	ACharacter* Character = Cast<ACharacter>(GetOwner());
+	if (Character)
+	{
+		WeaponActor->AttachToComponent(Character->GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_rSocket"));
+	}
+
+	// Send an event to the event bus
+	UGEventsComponent* EventsComponent = Cast<UGEventsComponent>(GetOwner()->GetComponentByClass(UGEventsComponent::StaticClass()));
+	if (EventsComponent)
+	{
+		EventsComponent->OnWeaponEquipped.Broadcast(Cast<AGWeapon>(WeaponActor));
+	}
+
+	return true;
+}
+
+
 
 bool UGInventoryComponent::IsInventoryFull() const
 {

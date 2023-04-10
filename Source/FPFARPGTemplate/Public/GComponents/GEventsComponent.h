@@ -37,6 +37,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FRemoveCurrencyDelegate, FName, Cur
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStatChangedDelegate, const FGCharacterStat&, Stat);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWeaponEquipped, class AGWeapon*, Weapon);
 
 
 
@@ -72,6 +73,7 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnStatChangedDelegate OnStatChanged;
 
-
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnWeaponEquipped OnWeaponEquipped;
 		
 };

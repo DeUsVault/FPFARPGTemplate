@@ -11,6 +11,10 @@
 #include "GComponents/GCharacterProgressionComponent.h"
 #include "GComponents/GCharacterInfoComponent.h"
 
+#include "AbilitySystemComponent.h"
+#include "GameplayAbilitySpec.h"
+
+
 // Sets default values
 AGPlayerCharacter::AGPlayerCharacter()
 {
@@ -27,6 +31,7 @@ AGPlayerCharacter::AGPlayerCharacter()
 	DialogueComponent = CreateDefaultSubobject<UGDialogueComponent>(TEXT("DialogueComponent"));
 	CharacterProgressionComponent = CreateDefaultSubobject<UGCharacterProgressionComponent>(TEXT("CharacterProgressionComponent"));
 	CharacterInfoComponent = CreateDefaultSubobject<UGCharacterInfoComponent>(TEXT("CharacterInfoComponent"));
+	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 
 	// Disable the rotation of the character to face the camera
 	bUseControllerRotationYaw = true;
